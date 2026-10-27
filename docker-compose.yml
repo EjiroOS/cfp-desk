@@ -1,0 +1,13 @@
+services:
+  cfp-desk:
+    build: .
+    ports:
+      # 127.0.0.1 means only this Mac can reach the app.
+      # Do NOT change this to "8080:8080" - that would expose the vulnerable
+      # app to everyone on your Wi-Fi.
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - cfp-data:/data
+
+volumes:
+  cfp-data:

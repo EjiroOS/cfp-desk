@@ -1,0 +1,21 @@
+body { font-family: -apple-system, system-ui, sans-serif; margin: 0; background: #f6f5f2; color: #222; }
+header { display: flex; justify-content: space-between; align-items: center; padding: 12px 24px; background: #1f3a5f; color: #fff; }
+header a { color: #fff; text-decoration: none; margin-left: 16px; }
+.brand { font-weight: 700; margin-left: 0; }
+nav { display: flex; align-items: center; }
+nav form { display: inline; margin-left: 16px; }
+button.link { background: none; border: 0; color: #fff; font: inherit; cursor: pointer; padding: 0; }
+main { max-width: 720px; margin: 32px auto; padding: 0 16px; }
+.card { background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 20px; }
+form.card label { display: block; margin-bottom: 14px; font-weight: 600; }
+form.card label.inline { font-weight: 400; }
+input:not([type=checkbox]), select, textarea { display: block; width: 100%; box-sizing: border-box; margin-top: 4px; padding: 8px; font: inherit; border: 1px solid #ccc; border-radius: 4px; }
+button { background: #1f3a5f; color: #fff; border: 0; padding: 10px 16px; border-radius: 4px; font: inherit; cursor: pointer; }
+table { width: 100%; border-collapse: collapse; background: #fff; }
+th, td { text-align: left; padding: 8px; border-bottom: 1px solid #eee; }
+.status { font-size: 0.85em; padding: 2px 8px; border-radius: 10px; background: #eee; }
+.status.submitted { background: #d9f2e3; }
+.status.draft { background: #fdf0d5; }
+.meta { color: #666; font-size: 0.9em; }
+.error { background: #fde2e1; border: 1px solid #f5b5b2; padding: 10px; border-radius: 4px; }
+footer { text-align: center; color: #888; font-size: 0.8em; padding: 24px; }

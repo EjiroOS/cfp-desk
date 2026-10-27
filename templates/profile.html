@@ -1,0 +1,12 @@
+{{define "content"}}
+<h1>Your speaker profile</h1>
+{{with .User}}
+<form method="post" action="/profile" class="card">
+  <label>Full name <input name="full_name" value="{{.FullName}}"></label>
+  <label>Email <input name="email" type="email" value="{{.Email}}"></label>
+  <label>Organisation <input name="org" value="{{.Org}}"></label>
+  <label>Short bio <textarea name="bio" rows="4">{{.Bio}}</textarea></label>
+  <button>Save profile</button>
+</form>
+{{end}}
+{{end}}

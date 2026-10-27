@@ -1,0 +1,4 @@
+# local database and build output
+*.db
+cfp-desk
+.DS_Store

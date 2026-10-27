@@ -1,0 +1,27 @@
+{{define "layout"}}<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>cfp-desk</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header>
+    <a class="brand" href="/">cfp-desk</a>
+    {{if .User}}
+    <nav>
+      <a href="/proposals">My proposals</a>
+      <a href="/proposals/new">New proposal</a>
+      <a href="/profile">Profile</a>
+      <form method="post" action="/logout"><button class="link">Log out</button></form>
+    </nav>
+    {{end}}
+  </header>
+  <main>
+    {{if .Error}}<p class="error">{{.Error}}</p>{{end}}
+    {{template "content" .}}
+  </main>
+  <footer>Deliberately vulnerable training app. Localhost only.</footer>
+</body>
+</html>{{end}}

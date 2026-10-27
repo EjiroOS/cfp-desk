@@ -1,0 +1,10 @@
+{{define "content"}}
+<h1>Create a speaker account</h1>
+<form method="post" action="/register" class="card">
+  <label>Full name <input name="full_name"></label>
+  <label>Username <input name="username" autocomplete="username"></label>
+  <label>Password <input name="password" type="password" autocomplete="new-password"></label>
+  <button>Create account</button>
+</form>
+<p>Already have one? <a href="/login">Log in</a></p>
+{{end}}

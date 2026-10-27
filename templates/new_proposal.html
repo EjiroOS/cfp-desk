@@ -1,0 +1,18 @@
+{{define "content"}}
+<h1>New talk proposal</h1>
+<form method="post" action="/proposals" class="card">
+  <label>Title <input name="title"></label>
+  <label>Track
+    <select name="track">
+      <option>Engineering</option>
+      <option>Security</option>
+      <option>Cloud Native</option>
+      <option>Community</option>
+      <option>Keynote</option>
+    </select>
+  </label>
+  <label>Abstract <textarea name="abstract" rows="8"></textarea></label>
+  <label class="inline"><input type="checkbox" name="submit" value="yes"> Submit now (leave unticked to save as a draft)</label>
+  <button>Save proposal</button>
+</form>
+{{end}}

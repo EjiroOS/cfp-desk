@@ -1,0 +1,20 @@
+{{define "content"}}
+<h1>My proposals</h1>
+{{if .Data}}
+<table>
+  <thead><tr><th>Title</th><th>Track</th><th>Status</th><th>Created</th></tr></thead>
+  <tbody>
+  {{range .Data}}
+    <tr>
+      <td><a href="/proposals/{{.ID}}">{{.Title}}</a></td>
+      <td>{{.Track}}</td>
+      <td><span class="status {{.Status}}">{{.Status}}</span></td>
+      <td>{{.CreatedAt}}</td>
+    </tr>
+  {{end}}
+  </tbody>
+</table>
+{{else}}
+<p>You haven't written any proposals yet. <a href="/proposals/new">Start one</a>.</p>
+{{end}}
+{{end}}
