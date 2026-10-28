@@ -62,6 +62,8 @@ func main() {
 	// only publishes it on 127.0.0.1, so nothing outside your Mac can reach it.
 	addr := ":" + port
 	log.Printf("cfp-desk listening on %s", addr)
+	// The lab runs on localhost only. A real deployment puts HTTPS in front of it.
+	// nosemgrep: go.lang.security.audit.net.use-tls.use-tls
 	log.Fatal(http.ListenAndServe(addr, securityHeaders(mux)))
 }
 

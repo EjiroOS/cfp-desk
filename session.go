@@ -49,6 +49,8 @@ func (s *SessionStore) Delete(token string) {
 // the XSS in VULN-2) can read document.cookie and steal the session.
 // The app also sends no security headers at all (no Content-Security-Policy,
 // X-Frame-Options, X-Content-Type-Options and so on).
+// Secure is off because this lab runs on plain HTTP. Turn it on when served over HTTPS.
+// nosemgrep: go.lang.security.audit.net.cookie-missing-secure.cookie-missing-secure
 func setSessionCookie(w http.ResponseWriter, token string) {
 	http.SetCookie(w, &http.Cookie{
 		Name:  sessionCookie,
@@ -60,11 +62,14 @@ func setSessionCookie(w http.ResponseWriter, token string) {
 }
 
 func clearSessionCookie(w http.ResponseWriter) {
+	// nosemgrep: go.lang.security.audit.net.cookie-missing-secure.cookie-missing-secure
 	http.SetCookie(w, &http.Cookie{
-		Name:   sessionCookie,
-		Value:  "",
-		Path:   "/",
-		MaxAge: -1,
+		Name:     sessionCookie,
+		Value:    "",
+		Path:     "/",
+		MaxAge:   -1,
+		HttpOnly: true,
+		SameSite: http.SameSiteLaxMode,
 	})
 }
 

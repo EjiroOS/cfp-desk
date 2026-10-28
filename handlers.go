@@ -185,6 +185,8 @@ func (app *App) createProposal(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	newID, _ := res.LastInsertId()
+	// newID comes from the database, not from user input, so this is not an open redirect.
+	// nosemgrep: go.lang.security.injection.open-redirect.open-redirect
 	http.Redirect(w, r, fmt.Sprintf("/proposals/%d", newID), http.StatusSeeOther)
 }
 
