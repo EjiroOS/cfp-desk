@@ -220,6 +220,6 @@ func (app *App) showProposal(w http.ResponseWriter, r *http.Request) {
 	// VULN-2 (stored XSS): converting the abstract to template.HTML tells Go
 	// "trust this, don't escape it". Any <script> a speaker writes in their
 	// abstract runs in the browser of everyone who opens the proposal.
-	view := proposalView{Proposal: p, AbstractHTML: template.HTML(p.Abstract)}
+	view := proposalView{Proposal: p}
 	app.render(w, r, "proposal", view, "")
 }
