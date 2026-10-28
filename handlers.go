@@ -206,11 +206,12 @@ func (app *App) showProposal(w http.ResponseWriter, r *http.Request) {
 	// VULN-3 (IDOR / broken access control): the query looks the proposal up
 	// by ID only. It never checks that it belongs to the logged-in speaker, so
 	// changing /proposals/3 to /proposals/2 shows someone else's unpublished draft.
+	userID, _ := app.currentUserID(r)
 	var p Proposal
 	err = app.db.QueryRow(`
 		SELECT p.id, p.user_id, u.full_name, p.title, p.abstract, p.track, p.status, p.created_at
 		FROM proposals p JOIN users u ON u.id = p.user_id
-		WHERE p.id = ?`, propID,
+		WHERE p.id = ? AND p.user_id = ?`, propID, userID,
 	).Scan(&p.ID, &p.UserID, &p.Speaker, &p.Title, &p.Abstract, &p.Track, &p.Status, &p.CreatedAt)
 	if err != nil {
 		http.NotFound(w, r)
