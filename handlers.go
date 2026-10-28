@@ -1,15 +1,15 @@
 package main
 
 import (
-	"database/sql"
 	"fmt"
 	"html/template"
 	"log"
 	"net/http"
 	"strconv"
 	"strings"
-)
 
+	"golang.org/x/crypto/bcrypt"
+)
 // pageData is what every template receives.
 type pageData struct {
 	User  *User
@@ -62,16 +62,15 @@ func (app *App) login(w http.ResponseWriter, r *http.Request) {
 	
 
 	var id int
+	var storedHash string
 	err := app.db.QueryRow(
-	"SELECT id FROM users WHERE username = ? AND password_hash = ?",
-	username, hashPassword(password),
-    ).Scan(&id)
+		"SELECT id, password_hash FROM users WHERE username = ?",
+		username,
+	).Scan(&id, &storedHash)
+	if err == nil {
+		err = bcrypt.CompareHashAndPassword([]byte(storedHash), []byte(password))
+	}
 	if err != nil {
-		if err != sql.ErrNoRows {
-			// Printing the raw database error also helps an attacker.
-			app.render(w, r, "login", nil, "Database error: "+err.Error())
-			return
-		}
 		app.render(w, r, "login", nil, "Wrong username or password.")
 		return
 	}

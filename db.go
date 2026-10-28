@@ -1,12 +1,11 @@
 package main
 
 import (
-	"crypto/md5"
 	"database/sql"
-	"encoding/hex"
 	"fmt"
 
 	_ "github.com/mattn/go-sqlite3"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type DB struct {
@@ -73,8 +72,8 @@ func OpenDB(path string) (*DB, error) {
 // salt. MD5 is fast, so leaked hashes can be cracked in seconds, and two users
 // with the same password get the same hash.
 func hashPassword(password string) string {
-	sum := md5.Sum([]byte(password))
-	return hex.EncodeToString(sum[:])
+	hash, _ := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	return string(hash)
 }
 
 // seed adds two fake speakers and their proposals the first time the app runs,

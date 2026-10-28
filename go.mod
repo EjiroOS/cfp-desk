@@ -1,5 +1,7 @@
 module github.com/EjiroOS/cfp-desk
 
-go 1.24.7
+go 1.26.0
 
 require github.com/mattn/go-sqlite3 v1.14.52
+
+require golang.org/x/crypto v0.58.0 // indirect
