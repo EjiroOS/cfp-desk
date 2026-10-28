@@ -62,7 +62,7 @@ func main() {
 	// only publishes it on 127.0.0.1, so nothing outside your Mac can reach it.
 	addr := ":" + port
 	log.Printf("cfp-desk listening on %s", addr)
-	log.Fatal(http.ListenAndServe(addr, mux))
+	log.Fatal(http.ListenAndServe(addr, securityHeaders(mux)))
 }
 
 // loadTemplates parses each page together with the shared layout.
