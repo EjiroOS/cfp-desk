@@ -22,3 +22,8 @@ The login code builds its SQL query by pasting the username straight into the qu
 ## Evidence
 ![Login form with the injection](evidence/sqli-login-form.png)
 ![Logged in as Amara](evidence/sqli-logged-in-as-amara.png)
+
+## Fix
+The login now uses a parameterised query: `SELECT id, password_hash FROM users WHERE username = ?`. The username is passed separately, so the database treats it as plain text and the quote mark can't break out. Raw database errors are also no longer shown on the login page.
+
+![Injection attempt now fails](evidence/sqli-fixed.png)

@@ -25,3 +25,8 @@ The app marks the abstract as "safe" HTML (`template.HTML`), so Go does not esca
 ![Script running for Kofi](evidence/xss-alert-kofi.png)
 ![Same script running for Amara](evidence/xss-alert-amara.png)
 ![Script reading the session cookie](evidence/xss-cookie.png)
+
+## Fix
+The abstract is no longer marked as trusted HTML (`template.HTML` removed in `handlers.go`, and `proposal.html` now uses `{{.Abstract}}`). Go's template engine escapes it, so scripts are shown as text instead of running. As a second layer, a Content-Security-Policy header now blocks inline scripts (see Finding 5).
+
+![Script now shown as text](evidence/xss-fixed.png)

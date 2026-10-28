@@ -19,3 +19,8 @@ The session cookie is created without security flags, and the app never sets sec
 
 ## Evidence
 ![Cookie with no security flags and no security headers](evidence/cookie-headers.png)
+
+## Fix
+The session cookie now has `HttpOnly` (scripts can't read it) and `SameSite=Lax` (other sites can't send requests with it). A new `securityHeaders` middleware adds `Content-Security-Policy`, `X-Content-Type-Options`, `X-Frame-Options` and `Referrer-Policy` to every response. `Secure` is left off because the local app runs over plain HTTP; it must be added when served over HTTPS.
+
+![Cookie flags and security headers now present](evidence/cookie-headers-fixed.png)

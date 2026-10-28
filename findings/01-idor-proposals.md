@@ -20,3 +20,8 @@
 
    ## Evidence
    ![Kofi viewing Amara's draft](evidence/idor-amara-draft.png)
+
+## Fix
+The proposal lookup now checks ownership as well as the ID: `WHERE p.id = ? AND p.user_id = ?`, using the logged-in speaker's ID. If the proposal belongs to someone else, the app returns 404 page not found.
+
+![Kofi gets 404 for Amara's draft](evidence/idor-fixed.png)

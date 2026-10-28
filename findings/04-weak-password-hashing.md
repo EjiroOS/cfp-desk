@@ -22,3 +22,8 @@ Passwords are hashed with plain MD5 and no salt, instead of a slow, salted algor
 
 ## Evidence
 ![Stored hash matches md5 of password123](evidence/weak-hash-md5.png)
+
+## Fix
+Passwords are now hashed with bcrypt (`golang.org/x/crypto/bcrypt`) instead of MD5. bcrypt adds a random salt, so the same password gives a different hash each time, and it is deliberately slow, so cracking a stolen database takes far longer. Login fetches the stored hash and checks it with `bcrypt.CompareHashAndPassword`.
+
+![Stored bcrypt hashes no longer match MD5](evidence/weak-hash-fixed.png)
