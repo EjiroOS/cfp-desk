@@ -59,13 +59,13 @@ func (app *App) login(w http.ResponseWriter, r *http.Request) {
 	// VULN-1 (SQL injection): the username is pasted straight into the SQL
 	// string. Typing  amara' --  as the username comments out the password
 	// check and logs you in as amara without knowing her password.
-	query := fmt.Sprintf(
-		"SELECT id FROM users WHERE username = '%s' AND password_hash = '%s'",
-		username, hashPassword(password),
-	)
+	
 
 	var id int
-	err := app.db.QueryRow(query).Scan(&id)
+	err := app.db.QueryRow(
+	"SELECT id FROM users WHERE username = ? AND password_hash = ?",
+	username, hashPassword(password),
+    ).Scan(&id)
 	if err != nil {
 		if err != sql.ErrNoRows {
 			// Printing the raw database error also helps an attacker.
