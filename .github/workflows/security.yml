@@ -24,3 +24,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: semgrep scan --config p/golang --error
+
+  deps:
+    name: Dependency scan (OSV-Scanner)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+      - run: go install github.com/google/osv-scanner/v2/cmd/osv-scanner@latest
+      - run: osv-scanner scan source -r .
