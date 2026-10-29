@@ -35,3 +35,16 @@ jobs:
           go-version: stable
       - run: go install github.com/google/osv-scanner/v2/cmd/osv-scanner@latest
       - run: osv-scanner scan source -r .
+
+  image:
+    name: Container scan (Trivy)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t cfp-desk:ci .
+      - run: >
+          docker run --rm
+          -v /var/run/docker.sock:/var/run/docker.sock
+          aquasec/trivy:latest image
+          --exit-code 1 --severity HIGH,CRITICAL --ignore-unfixed
+          cfp-desk:ci
