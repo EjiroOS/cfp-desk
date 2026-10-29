@@ -53,9 +53,9 @@ func setSessionCookie(w http.ResponseWriter, token string) {
 	// Secure is off because this lab runs on plain HTTP. Turn it on when served over HTTPS.
 	// nosemgrep: go.lang.security.audit.net.cookie-missing-secure.cookie-missing-secure
 	http.SetCookie(w, &http.Cookie{
-		Name:  sessionCookie,
-		Value: token,
-		Path:  "/",
+		Name:     sessionCookie,
+		Value:    token,
+		Path:     "/",
 		HttpOnly: true,
 		SameSite: http.SameSiteLaxMode,
 	})
@@ -92,10 +92,14 @@ func (app *App) requireLogin(next http.HandlerFunc) http.HandlerFunc {
 		next(w, r)
 	}
 }
+
+// securityHeaders adds browser protection headers to every response.
 // securityHeaders adds browser protection headers to every response.
 func securityHeaders(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-Security-Policy", "default-src 'self'")
+		w.Header().Set("Content-Security-Policy", "default-src 'self'; frame-ancestors 'none'; form-action 'self'")
+		w.Header().Set("Permissions-Policy", "camera=(), microphone=(), geolocation=()")
+		w.Header().Set("Cross-Origin-Embedder-Policy", "require-corp")
 		w.Header().Set("X-Content-Type-Options", "nosniff")
 		w.Header().Set("X-Frame-Options", "DENY")
 		w.Header().Set("Referrer-Policy", "no-referrer")
