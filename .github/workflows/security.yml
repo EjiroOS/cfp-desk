@@ -61,3 +61,5 @@ jobs:
         with:
           target: http://localhost:8080
           allow_issue_writing: false
+	  rules_file_name: .zap/rules.tsv
+          fail_action: true

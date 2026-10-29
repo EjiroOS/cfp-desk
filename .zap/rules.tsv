@@ -1,0 +1,4 @@
+10049	IGNORE	(Non-Storable Content - info only)
+10111	IGNORE	(Authentication Request Identified - info only)
+10112	IGNORE	(Session Management Response Identified - info only)
+10202	IGNORE	(Anti-CSRF Tokens - temporary, fixed in Finding 6)
